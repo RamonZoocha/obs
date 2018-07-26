@@ -1,0 +1,7 @@
+{
+    "require": {
+        "klein/klein": "^2.1",
+        "crodas/haanga": "^1.0",
+        "catfan/Medoo": "^1.5"
+    }
+}
