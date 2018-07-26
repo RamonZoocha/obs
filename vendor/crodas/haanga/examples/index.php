@@ -44,5 +44,5 @@ $vars = array(
 
 $time = microtime(TRUE);
 $mem = memory_get_usage();
-Haanga::load('index.html', $vars);
+Haanga::load('index.php', $vars);
 var_dump(array('memory' => (memory_get_usage()-$mem)/(1024*1024), 'seconds' => microtime(TRUE)-$time));
