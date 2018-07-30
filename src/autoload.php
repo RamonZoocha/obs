@@ -10,4 +10,3 @@ foreach (scandir(dirname(__FILE__)) as $filename) {
         require $path;
     }
 }
-
