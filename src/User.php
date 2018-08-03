@@ -86,9 +86,21 @@ class User
         }
     }
 
+    /**
+     * Returns a list of registerd users. Each user has its own file in /data/users_registered.
+     * This was made so that a huge file wouldn't be loaded into memory everytime the list was retrieved.
+     *
+     * @return array
+     */
     static function get_registered_users(){
-        $registered_users = file_get_contents('../data/users_registered.json');
-        return json_decode($registered_users);
+        $result = array();
+        $dir = '../data/users_registered';
+        $cdir = scandir($dir);
+        foreach ($cdir as $key => $user_file) {
+            if (!in_array($user_file, array(".","..")))
+                    $result[] = json_decode(file_get_contents($dir . '/' . $user_file));
+        }
+        return $result;
     }
 
     static function get_online_user($username) {

@@ -92,7 +92,9 @@ $klein->respond('POST', '/register', function ($request) {
 });
 
 $klein->respond('GET', '/t', function () {
-   \Obsidian\Channel::remove_user_from_channel('c', 'general');
+
+    print_r(User::get_registered_users());
+
 });
 
 $klein->dispatch();
