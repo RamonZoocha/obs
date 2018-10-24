@@ -4,10 +4,10 @@ namespace Obsidian;
 
 use UserManager;
 
-class core_user_permissions {
+class core_chat {
 
   public function page_load($event) {
-    echo '"core_user_permissions" notified: <br><br>';
+    echo '"core_chat" notified: <br><br>';
     print_r($event);
     echo '<hr>';
   }
