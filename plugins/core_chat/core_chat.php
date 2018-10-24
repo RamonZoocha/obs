@@ -13,3 +13,4 @@ class core_chat {
   }
 
 }
+

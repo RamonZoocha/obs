@@ -37,10 +37,6 @@ class PluginManager{
     echo '<hr>';
   }
 
-  public function detach($plugin) {
-    $this->plugins = array();
-  }
-
   public function notify() {
 
     echo 'Notify: <br><br>';
@@ -62,18 +58,6 @@ class PluginManager{
       include_once '../plugins/' . $plugin->name .'/' . $plugin->name .'.php';
       $this->attach($plugin->name);
     }
-//    $this->attach('core_user_permissions');
   }
 
-  public function includePlugins() {
-
-    $config_file_path = dirname(__DIR__) . '/config/config.json';
-    $plugins_enabled = json_decode(file_get_contents($config_file_path))
-      ->plugins_enabled;
-
-    foreach ($plugins_enabled as $plugin) {
-      include_once '../plugins/' . $plugin->name .'/' . $plugin->name .'.php';
-    }
-
-  }
 }
