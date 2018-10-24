@@ -12,14 +12,9 @@ $klein = new \Klein\Klein();
 $plugin_manager = new \Obsidian\PluginManager();
 
 $klein->respond('GET', '/', function () {
-  global $result;
   global $plugin_manager;
-  $plugin_manager->detach('a');
-  $plugin_manager->attach('core_chat');
-  $plugin_manager->attach('core_user_permissions');
   $plugin_manager->setEvent(['page' => 'front', 'hook' => 'page_load']);
 });
-
 
 $klein->respond('GET', '/login', function () {
   echo 'login';

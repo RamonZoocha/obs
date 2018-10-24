@@ -1,17 +1,15 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: ramon
+ * User: 
  * Date: 18/10/18
  * Time: 14:19
  */
 
-class UserManager {
+class User {
 
   public static function isUserLoggedIn() {
-
     return false;
-
   }
 
 }

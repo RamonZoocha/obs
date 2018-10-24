@@ -17,12 +17,11 @@ class PluginManager{
 
   public function setEvent($event) {
     $this->event = $event;
+    $this->loadPlugins();
     $this->notify();
   }
 
   public function attach($plugin_name) {
-
-    self::loadPlugins();
 
     $plugin_name = "\\Obsidian\\" . $plugin_name;
     $plugin = new $plugin_name;
@@ -53,8 +52,28 @@ class PluginManager{
     }
   }
 
-  public static function loadPlugins() {
-    include_once '../plugins/core_user_permissions/core_user_permissions.php';
-    include_once '../plugins/core_chat/core_chat.php';
+  public function loadPlugins() {
+
+    $config_file_path = dirname(__DIR__) . '/config/config.json';
+    $plugins_enabled = json_decode(file_get_contents($config_file_path))
+      ->plugins_enabled;
+
+    foreach ($plugins_enabled as $plugin) {
+      include_once '../plugins/' . $plugin->name .'/' . $plugin->name .'.php';
+      $this->attach($plugin->name);
+    }
+//    $this->attach('core_user_permissions');
+  }
+
+  public function includePlugins() {
+
+    $config_file_path = dirname(__DIR__) . '/config/config.json';
+    $plugins_enabled = json_decode(file_get_contents($config_file_path))
+      ->plugins_enabled;
+
+    foreach ($plugins_enabled as $plugin) {
+      include_once '../plugins/' . $plugin->name .'/' . $plugin->name .'.php';
+    }
+
   }
 }

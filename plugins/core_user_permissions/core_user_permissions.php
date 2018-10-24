@@ -2,7 +2,7 @@
 
 namespace Obsidian;
 
-use UserManager;
+use User;
 
 class core_user_permissions {
 
