@@ -19,6 +19,7 @@ class core_user_permissions {
       // Else, redirect to chat.
       else
         User::redirect('chat');
+
     }
 
     // If it's login page.
@@ -31,20 +32,17 @@ class core_user_permissions {
       // Else, redirect to chat.
       else
         User::redirect('chat');
+
     }
 
-    // If it's login page.
+    // If it's chat page.
     elseif ($event['uri'] == '/chat') {
 
-      // If user is not logged in, render login page.
+      // If user is not logged in, redirect to login page.
       if(!User::isUserLoggedIn())
-        User::redirect('/');
+        User::redirect('login');
 
-      // Else, redirect to chat.
-      else
-        User::redirect('chat');
     }
-
 
     echo '<br><br>"core_user_permissions" notified: <br><br>';
     print_r($event);

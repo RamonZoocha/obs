@@ -5,7 +5,7 @@ namespace Obsidian;
 class User {
 
   public static function isUserLoggedIn() {
-    return false;
+    return true;
   }
 
   public static function redirect($page) {

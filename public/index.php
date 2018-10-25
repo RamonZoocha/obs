@@ -39,6 +39,7 @@ $klein->respond('POST', '/login', function () {
  */
 $klein->respond('GET', '/chat', function () {
   global $plugin_manager;
+  $plugin_manager->setEvent(['hook' => 'page_load', 'uri' => $_SERVER['REQUEST_URI']]);
   $plugin_manager->setEvent(['hook' => 'chat_load', 'uri' => $_SERVER['REQUEST_URI']]);
 });
 
