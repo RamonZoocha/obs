@@ -44,7 +44,8 @@ class Plugin{
     echo '<hr>';
 
     foreach ($this->plugins as $plugin) {
-      $plugin->{$this->event['hook']}($this->event);
+      if(method_exists($plugin, $this->event['hook']))
+        $plugin->{$this->event['hook']}($this->event);
     }
   }
 

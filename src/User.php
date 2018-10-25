@@ -8,4 +8,8 @@ class User {
     return false;
   }
 
+  public static function redirect($page) {
+    header('Location: /' . $page);
+  }
+
 }
