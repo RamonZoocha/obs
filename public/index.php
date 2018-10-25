@@ -29,9 +29,13 @@ $klein->respond('GET', '/login', function () {
 /**
  * Handle POST requests to site.com/login.
  */
-$klein->respond('POST', '/login', function () {
+$klein->respond('POST', '/login', function ($request) {
   global $plugin_manager;
-  $plugin_manager->setEvent(['hook' => 'page_load', 'uri' => $_SERVER['REQUEST_URI']]);
+  $plugin_manager->setEvent([
+    'hook' => 'login_attempt',
+    'uri' => $_SERVER['REQUEST_URI'],
+    'vars' => $request->paramsPost()->all(),
+  ]);
 });
 
 /**
@@ -41,6 +45,14 @@ $klein->respond('GET', '/chat', function () {
   global $plugin_manager;
   $plugin_manager->setEvent(['hook' => 'page_load', 'uri' => $_SERVER['REQUEST_URI']]);
   $plugin_manager->setEvent(['hook' => 'chat_load', 'uri' => $_SERVER['REQUEST_URI']]);
+});
+
+/**
+ * Handle GET requests to the register page.
+ */
+$klein->respond('GET', '/register', function () {
+  global $plugin_manager;
+  $plugin_manager->setEvent(['hook' => 'page_load', 'uri' => $_SERVER['REQUEST_URI']]);
 });
 
 $klein->dispatch();

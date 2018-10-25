@@ -44,12 +44,31 @@ class core_user_permissions {
 
     }
 
-    echo '<br><br>"core_user_permissions" notified: <br><br>';
-    print_r($event);
-    echo '<hr>';
+    elseif ($event['uri'] == '/register') {
+
+      if(!User::isUserLoggedIn())
+        Template::render('register', []);
+      else
+        User::redirect('chat');
+
+    }
 
   }
 
+  public function login_attempt(&$event) {
+
+    $username = $event['vars']['username'];
+    $password = $event['vars']['password'];
+
+    if(User::login($username, $password)) {
+      User::redirect('chat');
+    }
+
+    else {
+      $event['vars']['warning'] = 'Invalid login';
+      Template::render('login', $event['vars']);
+    }
+  }
 
 }
 

@@ -22,27 +22,12 @@ class Plugin{
   }
 
   public function attach($plugin_name) {
-
     $plugin_name = "\\Obsidian\\" . $plugin_name;
     $plugin = new $plugin_name;
-
-    echo 'Attached: <br><br>';
-    print_r($plugin);
-    echo '<hr>';
-
     array_push($this->plugins, $plugin);
-
-    echo 'Plugins attached: <br><br>';
-    print_r($this->plugins);
-    echo '<hr>';
   }
 
   public function notify() {
-
-    echo 'Notify: <br><br>';
-    print_r($this->event);
-    echo '<hr>';
-
     foreach ($this->plugins as $plugin) {
       if(method_exists($plugin, $this->event['hook']))
         $plugin->{$this->event['hook']}($this->event);
@@ -52,6 +37,7 @@ class Plugin{
   public function loadPlugins() {
 
     $plugins_enabled = Config::getConfig('plugins_enabled');
+    $this->plugins = array();
 
     foreach ($plugins_enabled as $plugin) {
       include_once '../plugins/' . $plugin->name .'/' . $plugin->name .'.php';
