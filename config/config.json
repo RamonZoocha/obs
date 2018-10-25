@@ -1,3 +1,4 @@
 {
-  "plugins_enabled": [{"name":"core_user_permissions"},{"name":"core_file_management"},{"name":"core_chat"}]
+  "plugins_enabled": [{"name":"core_user_permissions"},{"name":"core_file_management"},{"name":"core_chat"}],
+  "enabled_theme": "default"
 }

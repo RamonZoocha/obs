@@ -2,16 +2,24 @@
 
 namespace Obsidian;
 
-use User;
+use Obsidian\User;
+use Obsidian\Template;
 
 class core_user_permissions {
 
-  public function page_load($event) {
+  public function page_load(&$event) {
 
-    if($event['page'] != 'login')
-      return;
+    if($event['uri'] == '/') {
+      if(!User::isUserLoggedIn())
+        Template::render('login', []);
+    }
 
-    echo '"core_user_permissions" notified: <br><br>';
+    else {
+      if(!User::isUserLoggedIn())
+        header('Location: '  . "\\");
+    }
+
+    echo '<br><br>"core_user_permissions" notified: <br><br>';
     print_r($event);
     echo '<hr>';
 

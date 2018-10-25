@@ -7,7 +7,7 @@
 
 namespace Obsidian;
 
-class PluginManager{
+class Plugin{
 
   public static $manager;
 
@@ -50,9 +50,7 @@ class PluginManager{
 
   public function loadPlugins() {
 
-    $config_file_path = dirname(__DIR__) . '/config/config.json';
-    $plugins_enabled = json_decode(file_get_contents($config_file_path))
-      ->plugins_enabled;
+    $plugins_enabled = Config::getConfig('plugins_enabled');
 
     foreach ($plugins_enabled as $plugin) {
       include_once '../plugins/' . $plugin->name .'/' . $plugin->name .'.php';
