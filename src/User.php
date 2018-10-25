@@ -5,7 +5,11 @@ namespace Obsidian;
 class User {
 
   public static function isUserLoggedIn() {
-    return false;
+    return true;
+  }
+
+  public static function getCurrentUser() {
+    return $_SESSION['user'];
   }
 
   public static function redirect($page) {
@@ -13,7 +17,7 @@ class User {
   }
 
   public static function login($username, $password) {
-    return false;
+    return true;
   }
 
 }

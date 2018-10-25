@@ -31,11 +31,35 @@ $klein->respond('GET', '/login', function () {
  */
 $klein->respond('POST', '/login', function ($request) {
   global $plugin_manager;
+
+  $username = $request->paramsPost()->all()['username'];
+  $password = $request->paramsPost()->all()['password'];
+
+  $success = false;
+
   $plugin_manager->setEvent([
-    'hook' => 'login_attempt',
+    'hook' => 'login_attempt_before',
     'uri' => $_SERVER['REQUEST_URI'],
-    'vars' => $request->paramsPost()->all(),
+    'vars' => [
+      'username' => $username,
+      'password' => $password,
+      'success' => json_encode($success),
+    ],
   ]);
+
+  $success = User::login($username, $password);
+
+  $plugin_manager->setEvent([
+    'hook' => 'login_attempt_after',
+    'uri' => $_SERVER['REQUEST_URI'],
+    'vars' => [
+      'username' => $username,
+      'password' => $password,
+      'success' => json_encode($success),
+    ],
+  ]);
+
+
 });
 
 /**

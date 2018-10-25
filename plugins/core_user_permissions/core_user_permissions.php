@@ -55,18 +55,10 @@ class core_user_permissions {
 
   }
 
-  public function login_attempt(&$event) {
+  public function login_attempt_after(&$event) {
 
-    $username = $event['vars']['username'];
-    $password = $event['vars']['password'];
-
-    if(User::login($username, $password)) {
+    if(boolval($event['vars']['success'])) {
       User::redirect('chat');
-    }
-
-    else {
-      $event['vars']['warning'] = 'Invalid login';
-      Template::render('login', $event['vars']);
     }
   }
 
