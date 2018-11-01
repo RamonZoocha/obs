@@ -8,8 +8,13 @@ class core_chat {
 
   public function chat_load(&$event) {
 
-    if(User::isUserLoggedIn())
-      Template::render('chat', []);
+    if(User::isUserLoggedIn()) {
+      User::redirect('logout');
+      return;
+    }
+
+
+    Template::render('chat', []);
 
   }
 

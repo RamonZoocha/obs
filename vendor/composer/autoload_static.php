@@ -28,6 +28,10 @@ class ComposerStaticInitc84d877964fdcbdbfc6297306aecad8b
         ),
     );
 
+    public static $fallbackDirsPsr0 = array (
+        0 => __DIR__ . '/..' . '/morris/microdb/src',
+    );
+
     public static $classMap = array (
         'HG_Parser' => __DIR__ . '/..' . '/crodas/haanga/lib/Haanga/Compiler/Tokenizer.php',
         'Haanga' => __DIR__ . '/..' . '/crodas/haanga/lib/Haanga.php',
@@ -100,6 +104,7 @@ class ComposerStaticInitc84d877964fdcbdbfc6297306aecad8b
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitc84d877964fdcbdbfc6297306aecad8b::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitc84d877964fdcbdbfc6297306aecad8b::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr0 = ComposerStaticInitc84d877964fdcbdbfc6297306aecad8b::$fallbackDirsPsr0;
             $loader->classMap = ComposerStaticInitc84d877964fdcbdbfc6297306aecad8b::$classMap;
 
         }, null, ClassLoader::class);

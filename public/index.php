@@ -79,4 +79,19 @@ $klein->respond('GET', '/register', function () {
   $plugin_manager->setEvent(['hook' => 'page_load', 'uri' => $_SERVER['REQUEST_URI']]);
 });
 
+/**
+ * Handle GET requests to logoug
+ */
+$klein->respond('GET', '/logout', function () {
+  global $plugin_manager;
+  User::logout();
+  $plugin_manager->setEvent(['hook' => 'page_load', 'uri' => $_SERVER['REQUEST_URI']]);
+  $plugin_manager->setEvent(['hook' => 'user_loged_out', 'uri' => $_SERVER['REQUEST_URI']]);
+});
+
+$klein->respond('GET', '/test', function () {
+  $username = 'userA';
+  echo Database::getUserWithPassword($username, '123');
+});
+
 $klein->dispatch();

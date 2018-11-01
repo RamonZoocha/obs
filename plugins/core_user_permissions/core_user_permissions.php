@@ -53,6 +53,10 @@ class core_user_permissions {
 
     }
 
+    elseif ($event['uri'] == '/logout') {
+      Template::render('goodbye', ['message' => 'You have logged out.']);
+    }
+
   }
 
   public function login_attempt_after(&$event) {
