@@ -26,19 +26,20 @@ class Database {
       return @$user['username'] == $username;
     };
 
-    $user = $db->first($callback);
-
-    echo json_encode($user);
+    return $user = $db->first($callback);
   }
 
-  static function getUserWithPassword($username, $password) {
+  static function insertUser($params) {
     global $db;
 
-    $callback = function($user) use($username, $password) {
-      return @$user['username'] == $username &&
-        @$user['password'] == $password;
-    };
+    $id = $db->create(
+      array(
+        'username' => $params['username'],
+        'password' => md5($params['password_1']),
+      )
+    );
 
-    return $user = $db->first($callback);
+    return $id != NULL;
+
   }
 }

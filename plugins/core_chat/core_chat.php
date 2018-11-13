@@ -8,7 +8,7 @@ class core_chat {
 
   public function chat_load(&$event) {
 
-    if(User::isUserLoggedIn()) {
+    if(!User::isUserLoggedIn()) {
       User::redirect('logout');
       return;
     }

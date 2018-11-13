@@ -16,6 +16,11 @@ $config = array(
 class Template {
 
   public static function render($template_name, $vars) {
+    $vars['site_name'] = Config::getConfig('site_name');
+
+    if($template_name == 'chat')
+      $vars['chat_reload_interval'] = Config::getConfig('chat_reload_interval');
+
     \Haanga::Load($template_name . '.html', $vars);
   }
 }

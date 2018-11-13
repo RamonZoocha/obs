@@ -60,9 +60,20 @@ class core_user_permissions {
   }
 
   public function login_attempt_after(&$event) {
-
-    if(boolval($event['vars']['success'])) {
+    if($event['vars']['success']) {
       User::redirect('chat');
+    }
+    else {
+      Template::render('login', ['warning' => 'Invalid login.']);
+    }
+  }
+
+  public function register_attempt_after(&$event) {
+    if($event['vars']['success']) {
+      Template::render('login', ['warning' => 'Welcome, you can now login.']);
+    }
+    else {
+      Template::render('register', ['warning' => 'There was an error. Make sure both password are equal. Or try a different username.']);
     }
   }
 

@@ -34,6 +34,7 @@ $klein->respond('POST', '/login', function ($request) {
 
   $username = $request->paramsPost()->all()['username'];
   $password = $request->paramsPost()->all()['password'];
+  $password = md5($password);
 
   $success = false;
 
@@ -41,9 +42,8 @@ $klein->respond('POST', '/login', function ($request) {
     'hook' => 'login_attempt_before',
     'uri' => $_SERVER['REQUEST_URI'],
     'vars' => [
-      'username' => $username,
-      'password' => $password,
-      'success' => json_encode($success),
+      'params' => $request->paramsPost()->all(),
+      'success' => $success,
     ],
   ]);
 
@@ -53,12 +53,10 @@ $klein->respond('POST', '/login', function ($request) {
     'hook' => 'login_attempt_after',
     'uri' => $_SERVER['REQUEST_URI'],
     'vars' => [
-      'username' => $username,
-      'password' => $password,
-      'success' => json_encode($success),
+      'params' => $request->paramsPost()->all(),
+      'success' => $success,
     ],
   ]);
-
 
 });
 
@@ -80,6 +78,38 @@ $klein->respond('GET', '/register', function () {
 });
 
 /**
+ * Handle POST requests to /register.
+ */
+$klein->respond('POST', '/register', function ($request) {
+  global $plugin_manager;
+
+  $params = $request->paramsPost()->all();
+  $success = false;
+
+  $plugin_manager->setEvent([
+    'hook' => 'register_attempt_before',
+    'uri' => $_SERVER['REQUEST_URI'],
+    'vars' => [
+      'params' => $params,
+      'success' => json_encode($success),
+    ],
+  ]);
+
+  $success = User::register($params);
+
+  $plugin_manager->setEvent([
+    'hook' => 'register_attempt_after',
+    'uri' => $_SERVER['REQUEST_URI'],
+    'vars' => [
+      'params' => $params,
+      'success' => $success,
+    ],
+  ]);
+
+
+});
+
+/**
  * Handle GET requests to logoug
  */
 $klein->respond('GET', '/logout', function () {
@@ -90,8 +120,7 @@ $klein->respond('GET', '/logout', function () {
 });
 
 $klein->respond('GET', '/test', function () {
-  $username = 'userA';
-  echo Database::getUserWithPassword($username, '123');
+  Template::render('main', []);
 });
 
 $klein->dispatch();

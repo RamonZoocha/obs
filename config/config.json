@@ -1,4 +1,6 @@
 {
+  "site_name": "MySite",
+  "chat_reload_interval": 5,
   "plugins_enabled": [{"name":"core_user_permissions"},{"name":"core_chat"}],
   "enabled_theme": "default"
 }
